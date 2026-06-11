@@ -1,0 +1,26 @@
+services:
+  opencode:
+    container_name: llm-sandbox-opencode
+    build:
+      context: .
+      args:
+        UID: ${HOST_UID:-1000}
+        GID: ${HOST_GID:-1000}
+    image: opencode-env
+    depends_on:
+      - openai-proxy
+    environment:
+      OPENCODE_CONFIG: /home/opencode/.config/opencode/opencode.json
+    volumes:
+      - ${WORKSPACE:-./workspace}:/workspace
+      - ./opencode.json:/home/opencode/.config/opencode/opencode.json:ro
+    stdin_open: true
+    tty: true
+
+  openai-proxy:
+    container_name: llm-sandbox-openai-proxy
+    image: nginx:1.27-alpine
+    environment:
+      OPENAI_API_KEY: ${OPENAI_API_KEY:?Set OPENAI_API_KEY in .env}
+    volumes:
+      - ./nginx/default.conf.template:/etc/nginx/templates/default.conf.template:ro
