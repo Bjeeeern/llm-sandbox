@@ -11,6 +11,7 @@ services:
       - openai-proxy
     environment:
       OPENCODE_CONFIG: /home/opencode/.config/opencode/opencode.json
+    command: ["sleep", "infinity"]
     volumes:
       - ${WORKSPACE:-./workspace}:/workspace
       - ./opencode.json:/home/opencode/.config/opencode/opencode.json:ro
