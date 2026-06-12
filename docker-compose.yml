@@ -14,10 +14,10 @@ services:
       GIT_OPTIONAL_LOCKS: "0"
     command: ["sleep", "infinity"]
     volumes:
-      - ${WORKSPACE:-./workspace}:/workspace
-      - ${WORKSPACE:-./workspace}/.git:/workspace/.git:ro
-      - ${HOST_OPENCODE_CONFIG:-~/.config/opencode}:/home/opencode/.config/opencode
-      - ${HOST_OPENCODE_DATA:-~/.local/share/opencode}:/home/opencode/.local/share/opencode
+      - ${WORKSPACE:?Set WORKSPACE in .env}:/workspace
+      - ${WORKSPACE:?Set WORKSPACE in .env}/.git:/workspace/.git:ro
+      - ~/.config/opencode:/home/opencode/.config/opencode
+      - ~/.local/share/opencode:/home/opencode/.local/share/opencode
     stdin_open: true
     tty: true
 
