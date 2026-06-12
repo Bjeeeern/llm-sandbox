@@ -11,10 +11,13 @@ services:
       - openai-proxy
     environment:
       OPENCODE_CONFIG: /home/opencode/.config/opencode/opencode.json
+      GIT_OPTIONAL_LOCKS: "0"
     command: ["sleep", "infinity"]
     volumes:
       - ${WORKSPACE:-./workspace}:/workspace
-      - ./opencode.json:/home/opencode/.config/opencode/opencode.json:ro
+      - ${WORKSPACE:-./workspace}/.git:/workspace/.git:ro
+      - ${HOST_OPENCODE_CONFIG:-~/.config/opencode}:/home/opencode/.config/opencode
+      - ${HOST_OPENCODE_DATA:-~/.local/share/opencode}:/home/opencode/.local/share/opencode
     stdin_open: true
     tty: true
 
