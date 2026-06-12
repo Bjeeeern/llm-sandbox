@@ -10,15 +10,15 @@ RUN curl -fsSL https://opencode.ai/install | bash \
     && cp /root/.opencode/bin/opencode /usr/local/bin/opencode \
     && chmod 755 /usr/local/bin/opencode
 
-# ARG UID=1000
-# ARG GID=1000
+ARG UID=1000
+ARG GID=1000
 
-# RUN groupadd -g ${GID} opencode \
-#     && useradd -m -u ${UID} -g ${GID} -s /bin/bash opencode \
-#     && mkdir -p /workspace /home/opencode/.config/opencode /home/opencode/.local/share/opencode \
-#     && chown -R opencode:opencode /workspace /home/opencode
+RUN groupadd -g ${GID} opencode \
+    && useradd -m -u ${UID} -g ${GID} -s /bin/bash opencode \
+    && mkdir -p /workspace /home/opencode/.config/opencode /home/opencode/.local/share/opencode \
+    && chown -R opencode:opencode /workspace /home/opencode
 
-# USER opencode
+USER opencode
 
 ENV HOME="/home/opencode" \
     XDG_CONFIG_HOME="/home/opencode/.config" \
